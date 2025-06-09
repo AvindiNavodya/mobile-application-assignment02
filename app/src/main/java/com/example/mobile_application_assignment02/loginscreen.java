@@ -1,7 +1,8 @@
 package com.example.mobile_application_assignment02;
 
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.widget.TextView; //  add this
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -15,10 +16,18 @@ public class loginscreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_loginscreen);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        //  Add this code to handle "Sign up" click
+        TextView signUpLink = findViewById(R.id.textView); // textView is your Sign-Up Text
+        signUpLink.setOnClickListener(v -> {
+            Intent intent = new Intent(loginscreen.this, signupscreen.class);
+            startActivity(intent);
         });
     }
 }
