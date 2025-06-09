@@ -1,8 +1,14 @@
 package com.example.mobile_application_assignment02;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +30,58 @@ public class userinfoscreen extends AppCompatActivity {
             return insets;
         });
 
-        //  Navigate back to News Screen when navigatebefore icon is clicked
+        // 👉 Back button
         ImageView backArrow = findViewById(R.id.imageView14);
         backArrow.setOnClickListener(v -> {
-            Intent intent = new Intent(userinfoscreen.this, newsscreen.class);
-            startActivity(intent);
-            finish(); // Optional to prevent stacking
+            startActivity(new Intent(userinfoscreen.this, newsscreen.class));
+            finish();
         });
+
+        // 👉 Sign-out dialog
+        Button signOutBtn = findViewById(R.id.button4);
+        signOutBtn.setOnClickListener(v -> showSignOutDialog());
+    }
+
+    private void showSignOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(userinfoscreen.this);
+
+        // Title
+        TextView title = new TextView(this);
+        title.setText("Sign-out?");
+        title.setPadding(40, 40, 40, 20);
+        title.setTextSize(20);
+        title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        title.setGravity(Gravity.LEFT);
+        title.setTextColor(getResources().getColor(android.R.color.black));
+
+        // Message
+        TextView message = new TextView(this);
+        message.setText("You will be logged out of your account.");
+        message.setPadding(40, 0, 40, 40);
+        message.setTextSize(16);
+        message.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        message.setGravity(Gravity.TOP);
+        message.setTextColor(getResources().getColor(android.R.color.black));
+
+        // Build dialog
+        builder.setCustomTitle(title);
+        builder.setView(message);
+
+        builder.setNegativeButton("DISMISS", (dialog, which) -> dialog.dismiss());
+
+        builder.setPositiveButton("CONFIRM", (dialog, which) -> {
+            Intent intent = new Intent(userinfoscreen.this, loginscreen.class);
+            startActivity(intent);
+            finish();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Style the buttons
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_500));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_500));
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
     }
 }
