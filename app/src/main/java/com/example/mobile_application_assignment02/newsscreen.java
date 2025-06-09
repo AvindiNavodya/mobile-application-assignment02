@@ -24,10 +24,10 @@ public class newsscreen extends AppCompatActivity {
             return insets;
         });
 
-        //  Navigate to Developer Info screen when error icon is clicked
-        ImageView errorIcon = findViewById(R.id.imageView8); // Error icon ID
-        errorIcon.setOnClickListener(v -> {
-            Intent intent = new Intent(newsscreen.this, developerinfoscreen.class);
+        // Open User Info screen when accountcircle icon is clicked
+        ImageView accountIcon = findViewById(R.id.imageView7);
+        accountIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(newsscreen.this, userinfoscreen.class);
             startActivity(intent);
         });
     }
