@@ -24,10 +24,17 @@ public class newsscreen extends AppCompatActivity {
             return insets;
         });
 
-        // Open User Info screen when accountcircle icon is clicked
-        ImageView accountIcon = findViewById(R.id.imageView7);
+        // accountcircle icon → go to userinfoscreen
+        ImageView accountIcon = findViewById(R.id.imageView7); // accountcircle
         accountIcon.setOnClickListener(v -> {
             Intent intent = new Intent(newsscreen.this, userinfoscreen.class);
+            startActivity(intent);
+        });
+
+        //  error icon → go to developerinfoscreen
+        ImageView errorIcon = findViewById(R.id.imageView8); // error icon
+        errorIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(newsscreen.this, developerinfoscreen.class);
             startActivity(intent);
         });
     }
