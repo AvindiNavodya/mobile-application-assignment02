@@ -25,14 +25,14 @@ public class loginscreen extends AppCompatActivity {
             return insets;
         });
 
-        // 👉 Link: Go to Sign-up screen
+        //Go to Sign-up screen
         TextView signUpLink = findViewById(R.id.textView);
         signUpLink.setOnClickListener(v -> {
             Intent intent = new Intent(loginscreen.this, signupscreen.class);
             startActivity(intent);
         });
 
-        // ✅ Link: Login button → Go to News Screen
+        //  Login button → Go to News Screen
         Button loginButton = findViewById(R.id.btnLogin);
         loginButton.setOnClickListener(v -> {
             Intent intent = new Intent(loginscreen.this, newsscreen.class);

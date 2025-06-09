@@ -2,7 +2,9 @@ package com.example.mobile_application_assignment02;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView; // add this
+import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -23,12 +25,20 @@ public class signupscreen extends AppCompatActivity {
             return insets;
         });
 
-        // Add this code to handle "Already have an Account? Login" click
-        TextView loginLink = findViewById(R.id.textView); // textView is your Login Text
+        // Go back to Login screen
+        TextView loginLink = findViewById(R.id.textView);
         loginLink.setOnClickListener(v -> {
             Intent intent = new Intent(signupscreen.this, loginscreen.class);
             startActivity(intent);
-            finish(); // optional: prevents backstack loop
+            finish();
+        });
+
+        //  SIGN-UP button → Go to News Screen
+        Button signUpButton = findViewById(R.id.btnLogin); // same ID as login button
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(signupscreen.this, newsscreen.class);
+            startActivity(intent);
+            finish(); // Optional: prevents going back to sign-up screen
         });
     }
 }
