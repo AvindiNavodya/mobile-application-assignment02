@@ -3,6 +3,7 @@ package com.example.mobile_application_assignment02;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,17 +25,22 @@ public class newsscreen extends AppCompatActivity {
             return insets;
         });
 
-        // accountcircle icon → go to userinfoscreen
-        ImageView accountIcon = findViewById(R.id.imageView7); // accountcircle
+        // Go to User Info
+        ImageView accountIcon = findViewById(R.id.imageView7);
         accountIcon.setOnClickListener(v -> {
-            Intent intent = new Intent(newsscreen.this, userinfoscreen.class);
-            startActivity(intent);
+            startActivity(new Intent(this, userinfoscreen.class));
         });
 
-        //  error icon → go to developerinfoscreen
-        ImageView errorIcon = findViewById(R.id.imageView8); // error icon
+        // Go to Developer Info
+        ImageView errorIcon = findViewById(R.id.imageView8);
         errorIcon.setOnClickListener(v -> {
-            Intent intent = new Intent(newsscreen.this, developerinfoscreen.class);
+            startActivity(new Intent(this, developerinfoscreen.class));
+        });
+
+        // Go to News Detail from "READ MORE.."
+        TextView readMore = findViewById(R.id.textView22); // "READ MORE.." text
+        readMore.setOnClickListener(v -> {
+            Intent intent = new Intent(this, newsdetailscreen.class);
             startActivity(intent);
         });
     }
