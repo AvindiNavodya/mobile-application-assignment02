@@ -65,7 +65,9 @@ public class newsscreen extends AppCompatActivity {
 
         eventsTab.setOnClickListener(v -> {
             highlightTab(eventsTab);
-            Toast.makeText(this, "EVENTS clicked", Toast.LENGTH_SHORT).show();
+            // Navigate to News Detail screen
+            Intent intent = new Intent(this, newsdetailscreen.class);
+            startActivity(intent);
         });
     }
 
