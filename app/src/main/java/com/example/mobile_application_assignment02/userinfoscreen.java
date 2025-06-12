@@ -1,7 +1,6 @@
 package com.example.mobile_application_assignment02;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class userinfoscreen extends AppCompatActivity {
+
+    TextView usernameView, emailView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,20 @@ public class userinfoscreen extends AppCompatActivity {
             finish();
         });
 
-        //  Sign-out dialog
+        // Set the username and email from session
+        usernameView = findViewById(R.id.textView10);
+        emailView = findViewById(R.id.textView12);
+
+        // Set only if not null
+        if (UserSession.username != null) {
+            usernameView.setText(" " + UserSession.username);
+        }
+
+        if (UserSession.email != null) {
+            emailView.setText(" " + UserSession.email);
+        }
+
+        // Sign-out dialog
         Button signOutBtn = findViewById(R.id.button4);
         signOutBtn.setOnClickListener(v -> showSignOutDialog());
 
@@ -71,6 +85,9 @@ public class userinfoscreen extends AppCompatActivity {
         builder.setView(message);
         builder.setNegativeButton("DISMISS", (dialog, which) -> dialog.dismiss());
         builder.setPositiveButton("CONFIRM", (dialog, which) -> {
+            // Optional: clear session
+            UserSession.username = null;
+            UserSession.email = null;
             Intent intent = new Intent(userinfoscreen.this, loginscreen.class);
             startActivity(intent);
             finish();
@@ -85,7 +102,6 @@ public class userinfoscreen extends AppCompatActivity {
     private void showEditInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(userinfoscreen.this);
 
-        // Title
         TextView title = new TextView(this);
         title.setText("Edit");
         title.setPadding(40, 40, 40, 20);
@@ -94,7 +110,6 @@ public class userinfoscreen extends AppCompatActivity {
         title.setGravity(Gravity.CENTER);
         title.setTextColor(getResources().getColor(android.R.color.black));
 
-        // Inputs
         EditText inputUsername = new EditText(this);
         inputUsername.setHint("Username");
         inputUsername.setPadding(40, 40, 40, 40);
@@ -105,7 +120,6 @@ public class userinfoscreen extends AppCompatActivity {
         inputEmail.setPadding(40, 40, 40, 40);
         inputEmail.setBackground(getDrawable(android.R.drawable.edit_text));
 
-        // Layout
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(50, 20, 50, 10);
@@ -118,17 +132,22 @@ public class userinfoscreen extends AppCompatActivity {
         builder.setNegativeButton("CANCEL", (dialog, which) -> dialog.dismiss());
 
         builder.setPositiveButton("OK", (dialog, which) -> {
-            //  Do something with inputUsername.getText() and inputEmail.getText()
-            // For example, update TextViews
-            TextView usernameView = findViewById(R.id.textView10);
-            TextView emailView = findViewById(R.id.textView12);
-            usernameView.setText(" " + inputUsername.getText().toString());
-            emailView.setText(" " + inputEmail.getText().toString());
+            String newUsername = inputUsername.getText().toString().trim();
+            String newEmail = inputEmail.getText().toString().trim();
+
+            if (!newUsername.isEmpty()) {
+                usernameView.setText(" " + newUsername);
+                UserSession.username = newUsername;
+            }
+
+            if (!newEmail.isEmpty()) {
+                emailView.setText(" " + newEmail);
+                UserSession.email = newEmail;
+            }
         });
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_500));
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_500));
     }

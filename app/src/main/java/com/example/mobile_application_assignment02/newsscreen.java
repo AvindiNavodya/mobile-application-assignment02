@@ -31,6 +31,15 @@ public class newsscreen extends AppCompatActivity {
             return insets;
         });
 
+        // Welcome Text
+        TextView welcomeText = findViewById(R.id.textView3);
+        String username = UserSession.username;
+        if (username != null && !username.isEmpty()) {
+            welcomeText.setText("Hi " + username);
+        } else {
+            welcomeText.setText("Hi");
+        }
+
         // Top icons
         ImageView accountIcon = findViewById(R.id.imageView7);
         accountIcon.setOnClickListener(v -> startActivity(new Intent(this, userinfoscreen.class)));
@@ -65,7 +74,6 @@ public class newsscreen extends AppCompatActivity {
 
         eventsTab.setOnClickListener(v -> {
             highlightTab(eventsTab);
-            // Navigate to News Detail screen
             Intent intent = new Intent(this, newsdetailscreen.class);
             startActivity(intent);
         });
